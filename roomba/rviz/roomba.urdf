@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<robot name="roomba">
+
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="0.6 0.4 0.1" />
+            </geometry>
+        </visual>
+    </link>
+
+    <link name="lidar">
+        <visual>
+            <geometry>
+                <cylinder length="0.04" radius="0.07" />
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.23 0 0.07"/>
+        </visual>
+    </link>
+
+    <link name="left_wheel">
+        <visual>
+            <geometry>
+                <cylinder length="0.04" radius="0.1" />
+            </geometry>
+            <origin rpy="-1.5707 0 0" xyz="-0.1 0.22 0"/>
+        </visual>
+    </link>
+
+    <link name="right_wheel">
+        <visual>
+            <geometry>
+                <cylinder length="0.04" radius="0.1" />
+            </geometry>
+            <origin rpy="-1.5707 0 0" xyz="-0.1 -0.22 0"/>
+        </visual>
+    </link>
+
+    <link name="caster">
+        <visual>
+            <geometry>
+                <sphere radius="0.05" />
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.2 0 -0.05"/>
+        </visual>
+    </link>
+
+    <joint name="lidar_to_base_link" type="fixed">
+        <parent link="base_link" />
+        <child link="lidar" />
+    </joint>
+
+    <joint name="left_wheel_to_base_link" type="fixed">
+        <parent link="base_link" />
+        <child link="left_wheel" />
+    </joint>
+
+    <joint name="right_wheel_to_base_link" type="fixed">
+        <parent link="base_link" />
+        <child link="right_wheel" />
+    </joint>
+
+    <joint name="caster_to_base_link" type="fixed">
+        <parent link="base_link" />
+        <child link="caster" />
+    </joint>
+</robot>

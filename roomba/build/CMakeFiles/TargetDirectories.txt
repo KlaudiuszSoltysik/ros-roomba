@@ -1,0 +1,12 @@
+/home/klaudiusz/ros_roomba/src/roomba/build/CMakeFiles/uninstall.dir
+/home/klaudiusz/ros_roomba/src/roomba/build/CMakeFiles/roomba_uninstall.dir
+/home/klaudiusz/ros_roomba/src/roomba/build/CMakeFiles/base.dir
+/home/klaudiusz/ros_roomba/src/roomba/build/CMakeFiles/map.dir
+/home/klaudiusz/ros_roomba/src/roomba/build/CMakeFiles/frame_publisher.dir
+/home/klaudiusz/ros_roomba/src/roomba/build/CMakeFiles/test.dir
+/home/klaudiusz/ros_roomba/src/roomba/build/CMakeFiles/edit_cache.dir
+/home/klaudiusz/ros_roomba/src/roomba/build/CMakeFiles/rebuild_cache.dir
+/home/klaudiusz/ros_roomba/src/roomba/build/CMakeFiles/list_install_components.dir
+/home/klaudiusz/ros_roomba/src/roomba/build/CMakeFiles/install.dir
+/home/klaudiusz/ros_roomba/src/roomba/build/CMakeFiles/install/local.dir
+/home/klaudiusz/ros_roomba/src/roomba/build/CMakeFiles/install/strip.dir

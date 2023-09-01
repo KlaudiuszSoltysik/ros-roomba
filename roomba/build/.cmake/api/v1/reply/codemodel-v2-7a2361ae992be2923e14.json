@@ -1,0 +1,97 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-4bdb1fba96bdc6e19fb4.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "roomba",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "base::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-base-Debug-e30a2f4bacbfaf463dd9.json",
+					"name" : "base",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "frame_publisher::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-frame_publisher-Debug-98d264f824f060c12a42.json",
+					"name" : "frame_publisher",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "map::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-map-Debug-4b4414041813022a9ba3.json",
+					"name" : "map",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "roomba_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-roomba_uninstall-Debug-a56eac7ea02499172abb.json",
+					"name" : "roomba_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-Debug-165db07ebe517ffddd36.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/klaudiusz/ros_roomba/src/roomba/build",
+		"source" : "/home/klaudiusz/ros_roomba/src/roomba"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

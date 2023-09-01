@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/roslibjs/1.1.0/roslib.min.js"
+    integrity="sha512-x2Owc9WayRcRj80Znkau58shVfXN2OIX+gQAlrx6KPugZBKrIC6AwgEWQQCI06p2Q8RB4ilxD+y+1BdNd+1fQA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/eventemitter3/5.0.1/index.min.js"
+    integrity="sha512-2Ennqwp8s5F7iz0njdlWWKbd6bCby5nny78Wt9e9t780ErG6eb/vaFDkIt/j3EVhBXeCYH7uc0eFmOvc0EbwLA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <title>Roomba</title>
+</head>
+
+<body>
+  <div class="panel">
+    <div class="control el1">ROOMBA CONTROL PANEL</div>
+    <button class="control el2">MAP ROOM</button>
+    <button class="control el3">GO TO</button>
+    <div class="control el4">
+      <input type="number" placeholder="x" id="x-input">
+    </div>
+    <div class="control el5">
+      <input type="number" placeholder="y" id="y-input">
+    </div>
+    <button class="control el6">CLEAN ROOM</button>
+    <button class="control el7">FORWARD</button>
+    <button class="control el8">LEFT</button>
+    <button class="control el9">RIGHT</button>
+    <button class="control el10">BACKWARD</button>
+    <button class="control el11">RESET SPEED</button>
+    <div class="control el12">
+      <input type="range" min="-200" max="200" value="0" id="slider">
+    </div>
+    <div class="control el13"></div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+
+</html>
