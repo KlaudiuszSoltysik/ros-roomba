@@ -8,6 +8,6 @@ Software to simulate and control robot vaccum made with Gazebo and Ros2 Humble. 
 - Control panel made with JavaScript, HTML and CSS
 - Web service to bridge JavaScript topics to ROS topics
 
-![Alt text](<roomba wykres-1.png>)
+![image](https://github.com/KlaudiuszSoltysik/ros-roomba/assets/109976941/9f177486-641f-4f54-9db8-8db896f7dedf)
 
 ## Video-presentation
