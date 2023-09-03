@@ -1,6 +1,6 @@
 // Connect with web bridge
 var ros = new ROSLIB.Ros({
-    url : 'ws://192.168.33.10:9090'
+    url: 'ws://192.168.33.10:9090'
 });
 
 ros.on('connection', function () {
@@ -20,6 +20,7 @@ const speedometer = document.getElementsByClassName('el13')[0];
 const slider = document.getElementById('slider');
 const xInput = document.getElementById('x-input');
 const yInput = document.getElementById('y-input');
+const img_camera = document.getElementById('camera');
 
 // Initialize variables
 let linear_vel = 0;
@@ -29,11 +30,22 @@ let y_goal;
 let is_working = false;
 speedometer.innerHTML = linear_vel;
 
-// Create /cmd_vel topic variable
+// Create topic variables
 var cmd_vel = new ROSLIB.Topic({
     ros: ros,
     name: '/cmd_vel',
     messageType: 'geometry_msgs/Twist'
+});
+
+var camera = new ROSLIB.Topic({
+    ros: ros,
+    name: '/camera_translated',
+    messageType: 'std_msgs/UInt8MultiArray'
+});
+
+camera.subscribe(function (msg) {
+    console.log(msg)
+    img_camera.src = URL.createObjectURL(new Blob([new Uint8Array(msg.data)], { type: 'image/jpeg' }));
 });
 
 // Add event listeners

@@ -22,6 +22,8 @@
         </xacro:inertial_cylinder>
     </link>
 
+    <link name="roomba/lidar/camera"></link>
+
     <link name="chassis">
         <visual>
             <geometry>
@@ -99,6 +101,12 @@
         <origin xyz="0 0 0"/>
     </joint>
 
+    <joint name="camera_joint" type="fixed">
+        <parent link="roomba/lidar/gpu_lidar"/>
+        <child link="roomba/lidar/camera"/>
+        <origin xyz="0 0 0"/>
+    </joint>
+
     <joint name="left_wheel_joint" type="continuous">
         <parent link="chassis"/>
         <child link="left_wheel"/>
@@ -110,7 +118,7 @@
         <parent link="chassis"/>
         <child link="right_wheel"/>
         <origin xyz="-0.35 -0.22 -0.065" rpy="1.5707 0 0"/>
-        <axis xyz="0 0 1"/>
+        <axis xyz="0 0 -1"/>
     </joint>
 
     <joint name="caster_wheel_joint" type="fixed">

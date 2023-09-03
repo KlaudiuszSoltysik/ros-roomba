@@ -9,6 +9,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(OpenCV REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -18,14 +19,14 @@ if(BUILD_TESTING)
 endif()
 
 add_executable(base src/base_node.cpp)
-add_executable(map src/map_node.cpp)
+add_executable(camera_translate src/camera_translate_node.cpp)
 
 ament_target_dependencies(base rclcpp)
-ament_target_dependencies(map rclcpp std_msgs sensor_msgs)
+ament_target_dependencies(camera_translate rclcpp std_msgs sensor_msgs OpenCV)
 
 install(TARGETS
   base
-  map
+  camera_translate
   DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY
