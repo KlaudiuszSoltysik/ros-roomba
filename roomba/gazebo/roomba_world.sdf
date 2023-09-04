@@ -886,7 +886,7 @@
                 <topic>cmd_vel</topic>
             </plugin>
 
-            <plugin filename="ignition-gazebo-joint-state-publisher-system" name="ignition::gazebo::systems::JointStatePublisher" />
+            <plugin filename="ignition-gazebo-joint-state-publisher-system" name="ignition::gazebo::systems::JointStatePublisher"/>
         </model>
     </world>
 </sdf>

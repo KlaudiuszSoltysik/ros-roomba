@@ -20,7 +20,7 @@ const speedometer = document.getElementsByClassName('el13')[0];
 const slider = document.getElementById('slider');
 const xInput = document.getElementById('x-input');
 const yInput = document.getElementById('y-input');
-const img_camera = document.getElementById('camera');
+const img = document.getElementById('camera-img');
 
 // Initialize variables
 let linear_vel = 0;
@@ -40,12 +40,12 @@ var cmd_vel = new ROSLIB.Topic({
 var camera = new ROSLIB.Topic({
     ros: ros,
     name: '/camera_translated',
-    messageType: 'std_msgs/UInt8MultiArray'
+    messageType: 'std_msgs/String'
 });
 
 camera.subscribe(function (msg) {
-    console.log(msg)
-    img_camera.src = URL.createObjectURL(new Blob([new Uint8Array(msg.data)], { type: 'image/jpeg' }));
+    const imageDataUri = `data:image/jpeg;base64,${msg.data}`;
+    img.src = imageDataUri;
 });
 
 // Add event listeners
