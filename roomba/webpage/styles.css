@@ -22,6 +22,7 @@ html {
   align-items: center;
   text-align: center;
   font-size: 200%;
+  min-height: 100px;
 }
 
 button {
@@ -46,6 +47,7 @@ button:disabled {
   appearance: none;
   background: transparent;
   cursor: pointer;
+  width: 80%;
 }
 
 #slider:focus {
@@ -74,6 +76,15 @@ button:disabled {
   padding: 10px;
   font-size: 20px;
   width: 80%;
+}
+
+#camera-img {
+  padding: 2%;
+  justify-content: center;
+}
+
+.el14 {
+  min-height: auto;
 }
 
 @media (min-width: 769px) {
@@ -135,9 +146,12 @@ button:disabled {
     grid-area: 5 / 6 / 6 / 7;
   }
 
-  #slider {
-    transform: rotate(-90deg);
-    width: 100%;
+  .el14 {
+    grid-area: 7 / 1 / 8 / 7;
+  }
+
+  #camera-img {
+    width: 50%;
   }
 }
 
@@ -199,7 +213,11 @@ button:disabled {
     grid-area: 8 / 3 / 9 / 4;
   }
 
-  #slider {
+  .el14 {
+    grid-area: 9 / 1 / 10 / 4;
+  }
+
+  #camera-img {
     width: 80%;
   }
 }

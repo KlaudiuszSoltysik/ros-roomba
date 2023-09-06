@@ -383,7 +383,7 @@
                 <collision name="collision">
                     <geometry>
                         <cylinder>
-                            <radius>0.5</radius>
+                            <radius>1</radius>
                             <length>1</length>
                         </cylinder>
                     </geometry>
@@ -719,9 +719,9 @@
                     <camera>
                         <horizontal_fov>1.047</horizontal_fov>
                         <image>
-                        <width>320</width>
-                        <height>240</height>
-                        <format>R8G8B8</format>
+                            <width>1280</width>
+                            <height>720</height>
+                            <format>R8G8B8</format>
                         </image>
                         <clip>
                             <near>0.1</near>
