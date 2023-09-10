@@ -11,7 +11,7 @@ class Base : public rclcpp::Node {
     Base() : Node("base") {
       const char* base_bash_path = "/home/klaudiusz/Documents/ros_roomba/src/roomba/bash_scripts/base.bash";
 
-      // Run a bash script that opens the simulation, creates the web server, and creates the bridges
+      // Run a bash script that acts as launch file
       if(system(base_bash_path) == 0) {
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "The bash script ran successfully");
       } else {

@@ -1,18 +1,8 @@
 from launch import LaunchDescription
-from launch.actions import ExecuteProcess
-from launch.substitutions import PathJoinSubstitution
-from launch_ros.substitutions import FindPackageShare
-
 from launch_ros.actions import Node
-import xacro
-import os
 
 
 def generate_launch_description():
-    pkg_name = 'roomba'
-    pkg_share = FindPackageShare(pkg_name)
-    # xacro_subpath = 'rviz/roomba.urdf.xacro'
-
     base_node = Node(
         package='roomba',
         executable='base',
@@ -22,39 +12,38 @@ def generate_launch_description():
         package='roomba',
         executable='camera_translate',
         name='camera_translate')
-
-    # gazebo = ExecuteProcess(
-    #     cmd=[
-    #         'ign gazebo',
-    #         PathJoinSubstitution([
-    #             pkg_share,
-    #             'gazebo',
-    #             'roomba_world.sdf'])],
-    #     shell=True)
     
-    # rviz = Node(
-    #     package='rviz2',
-    #     executable='rviz2',
-    #     arguments=['-d', PathJoinSubstitution([
-    #         pkg_share,
-    #         'rviz',
-    #         'config.rviz'])])
+    robot_tf_publisher_node = Node(
+        package='roomba',
+        executable='robot_tf_publisher',
+        name='robot_tf_publisher')
     
+    return_tf_service_node = Node(
+        package='roomba',
+        executable='return_tf_service',
+        name='return_tf_service')
     
-    # xacro_file = os.path.join(pkg_share, xacro_subpath)
-    # robot_description = xacro.process_file(xacro_file).toxml()
+    map_room_node = Node(
+        package='roomba',
+        executable='map_room',
+        name='map_room')
     
-    # robot_state_publisher_node = Node(
-    #     package='robot_state_publisher',
-    #     executable='robot_state_publisher',
-    #     output='screen',
-    #     parameters=[{'robot_description': robot_description,
-    #     'use_sim_time': True}]
-    # )
+    go_to_node = Node(
+        package='roomba',
+        executable='go_to_service',
+        name='go_to_service')
+    
+    clean_room_node = Node(
+        package='roomba',
+        executable='clean_room',
+        name='clean_room')
 
     return LaunchDescription([
         base_node,
         camera_translate_node,
-        # gazebo,
-        # rviz,
+        robot_tf_publisher_node,
+        return_tf_service_node,
+        map_room_node,
+        go_to_node,
+        clean_room_node,
     ])

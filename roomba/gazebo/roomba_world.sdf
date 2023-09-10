@@ -158,93 +158,6 @@
                 <real_time_factor>true</real_time_factor>
                 <iterations>true</iterations>
             </plugin>
-
-            <!-- Insert simple shapes -->
-            <!-- <plugin filename="Shapes" name="Shapes">
-                <ignition-gui>
-                    <property key="resizable" type="bool">false</property>
-                    <property key="x" type="double">0</property>
-                    <property key="y" type="double">0</property>
-                    <property key="width" type="double">250</property>
-                    <property key="height" type="double">50</property>
-                    <property key="state" type="string">floating</property>
-                    <property key="showTitleBar" type="bool">false</property>
-                    <property key="cardBackground" type="string">#666666</property>
-                </ignition-gui>
-            </plugin> -->
-
-            <!-- Insert lights -->
-            <!-- <plugin filename="Lights" name="Lights">
-                <ignition-gui>
-                    <property key="resizable" type="bool">false</property>
-                    <property key="x" type="double">250</property>
-                    <property key="y" type="double">0</property>
-                    <property key="width" type="double">150</property>
-                    <property key="height" type="double">50</property>
-                    <property key="state" type="string">floating</property>
-                    <property key="showTitleBar" type="bool">false</property>
-                    <property key="cardBackground" type="string">#666666</property>
-                </ignition-gui>
-            </plugin> -->
-
-            <!-- Translate / rotate -->
-            <!-- <plugin filename="TransformControl" name="Transform control">
-                <ignition-gui>
-                    <property key="resizable" type="bool">false</property>
-                    <property key="x" type="double">0</property>
-                    <property key="y" type="double">50</property>
-                    <property key="width" type="double">250</property>
-                    <property key="height" type="double">50</property>
-                    <property key="state" type="string">floating</property>
-                    <property key="showTitleBar" type="bool">false</property>
-                    <property key="cardBackground" type="string">#777777</property>
-                </ignition-gui>
-                <legacy>false</legacy>
-            </plugin> -->
-
-            <!-- Screenshot -->
-            <!-- <plugin filename="Screenshot" name="Screenshot">
-                <ignition-gui>
-                    <property key="resizable" type="bool">false</property>
-                    <property key="x" type="double">250</property>
-                    <property key="y" type="double">50</property>
-                    <property key="width" type="double">50</property>
-                    <property key="height" type="double">50</property>
-                    <property key="state" type="string">floating</property>
-                    <property key="showTitleBar" type="bool">false</property>
-                    <property key="cardBackground" type="string">#777777</property>
-                </ignition-gui>
-            </plugin> -->
-
-            <!-- Copy/Paste -->
-            <!-- <plugin filename="CopyPaste" name="CopyPaste">
-                <ignition-gui>
-                    <property key="resizable" type="bool">false</property>
-                    <property key="x" type="double">300</property>
-                    <property key="y" type="double">50</property>
-                    <property key="width" type="double">100</property>
-                    <property key="height" type="double">50</property>
-                    <property key="state" type="string">floating</property>
-                    <property key="showTitleBar" type="bool">false</property>
-                    <property key="cardBackground" type="string">#777777</property>
-                </ignition-gui>
-            </plugin> -->
-
-            <!-- Inspector -->
-            <!-- <plugin filename="ComponentInspector" name="Component inspector">
-                <ignition-gui>
-                    <property type="bool" key="showTitleBar">false</property>
-                    <property type="string" key="state">docked</property>
-                </ignition-gui>
-            </plugin> -->
-
-            <!-- Entity tree -->
-            <!-- <plugin filename="EntityTree" name="Entity tree">
-                <ignition-gui>
-                    <property type="bool" key="showTitleBar">false</property>
-                    <property type="string" key="state">docked</property>
-                </ignition-gui>
-            </plugin> -->
         </gui>
 
         <model name="ground">
@@ -645,12 +558,6 @@
                         </box>
                     </geometry>
                 </collision>
-                <sensor name="imu_sensor" type="imu">
-                    <always_on>1</always_on>
-                    <update_rate>1</update_rate>
-                    <visualize>true</visualize>
-                    <topic>imu</topic>
-                </sensor>
             </link>
 
             <link name="lidar">
@@ -687,8 +594,13 @@
                         </cylinder>
                     </geometry>
                 </collision>
+                <sensor name="imu_sensor" type="imu">
+                    <always_on>1</always_on>
+                    <update_rate>1</update_rate>
+                    <visualize>true</visualize>
+                    <topic>imu</topic>
+                </sensor>
                 <sensor name="gpu_lidar" type="gpu_lidar">
-                    <pose>0 0 0 0 0 0</pose>
                     <topic>lidar</topic>
                     <update_rate>15</update_rate>
                     <ray>
@@ -716,6 +628,7 @@
                     <visualize>true</visualize>
                 </sensor>
                 <sensor name="camera" type="camera">
+                    <pose>0.05 0 0 0 0 0</pose>
                     <camera>
                         <horizontal_fov>1.047</horizontal_fov>
                         <image>
