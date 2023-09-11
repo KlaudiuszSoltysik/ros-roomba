@@ -32,10 +32,10 @@ add_executable(clean_room src/clean_room_node.cpp)
 
 ament_target_dependencies(base rclcpp)
 ament_target_dependencies(camera_translate rclcpp std_msgs sensor_msgs OpenCV)
-ament_target_dependencies(robot_tf_publisher rclcpp geometry_msgs nav_msgs tf2_ros)
-ament_target_dependencies(return_tf_service rclcpp)
+ament_target_dependencies(robot_tf_publisher rclcpp custom_interfaces geometry_msgs nav_msgs tf2_ros)
+ament_target_dependencies(return_tf_service rclcpp custom_interfaces geometry_msgs tf2_ros)
 ament_target_dependencies(map_room rclcpp)
-ament_target_dependencies(go_to_service rclcpp custom_interfaces geometry_msgs)
+ament_target_dependencies(go_to_service rclcpp custom_interfaces geometry_msgs tf2_ros)
 ament_target_dependencies(clean_room rclcpp)
 
 install(TARGETS

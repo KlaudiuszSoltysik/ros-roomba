@@ -25,21 +25,21 @@ class TfPublisher : public rclcpp::Node {
     std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster;
 
     void odometrySubCb(const nav_msgs::msg::Odometry & msg) {
-      geometry_msgs::msg::TransformStamped t;
+      geometry_msgs::msg::TransformStamped tf;
 
-      t.header.stamp = this->get_clock()->now();
-      t.header.frame_id = "world";
-      t.child_frame_id = "roomba";
+      tf.header.stamp = this->get_clock()->now();
+      tf.header.frame_id = "world";
+      tf.child_frame_id = "roomba";
 
-      t.transform.translation.x = msg.pose.pose.position.x;
-      t.transform.translation.y = msg.pose.pose.position.y;
-      t.transform.translation.z = 0.0;
-      t.transform.rotation.x = msg.pose.pose.orientation.x;
-      t.transform.rotation.y = msg.pose.pose.orientation.y;
-      t.transform.rotation.z = msg.pose.pose.orientation.z;
-      t.transform.rotation.w = msg.pose.pose.orientation.w;
+      tf.transform.translation.x = msg.pose.pose.position.x;
+      tf.transform.translation.y = msg.pose.pose.position.y;
+      tf.transform.translation.z = 0.0;
+      tf.transform.rotation.x = msg.pose.pose.orientation.x;
+      tf.transform.rotation.y = msg.pose.pose.orientation.y;
+      tf.transform.rotation.z = msg.pose.pose.orientation.z;
+      tf.transform.rotation.w = msg.pose.pose.orientation.w;
 
-      tf_broadcaster->sendTransform(t);
+      tf_broadcaster->sendTransform(tf);
     }
 };
 
