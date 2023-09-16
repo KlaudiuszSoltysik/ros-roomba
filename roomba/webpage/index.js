@@ -179,11 +179,6 @@ go_to_btn.addEventListener('mousedown', function () {
         });
 
         go_to_cli.callService(request, function (response) {
-            console.log('Result for service call on '
-                + go_to_cli.name
-                + ': '
-                + response.result);
-
             is_working = false;
 
             go_to_btn.innerHTML = "GO TO";

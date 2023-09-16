@@ -596,13 +596,13 @@
                 </collision>
                 <sensor name="imu_sensor" type="imu">
                     <always_on>1</always_on>
-                    <update_rate>1</update_rate>
+                    <update_rate>30</update_rate>
                     <visualize>true</visualize>
                     <topic>imu</topic>
                 </sensor>
                 <sensor name="gpu_lidar" type="gpu_lidar">
                     <topic>lidar</topic>
-                    <update_rate>15</update_rate>
+                    <update_rate>30</update_rate>
                     <ray>
                         <scan>
                             <horizontal>

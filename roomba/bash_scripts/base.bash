@@ -15,7 +15,7 @@ ros2 run ros_gz_bridge parameter_bridge /model/roomba/odometry@nav_msgs/msg/Odom
 ros2 run ros_gz_bridge parameter_bridge /cmd_vel@geometry_msgs/msg/Twist]ignition.msgs.Twist &
 
 # Run robot state publisher (tf)
-ros2 run robot_state_publisher robot_state_publisher --ros-args -p robot_description:="$( xacro /home/klaudiusz/Documents/ros_roomba/src/roomba/rviz/roomba.urdf.xacro )" &
+ros2 run robot_state_publisher robot_state_publisher --ros-args -p robot_description:="$( xacro /home/klaudiusz/Documents/ros_roomba/src/roomba/rviz/roomba.urdf.xacro )" rate:="100"&
 
 sleep 1
 
@@ -26,17 +26,17 @@ rviz2 -d /home/klaudiusz/Documents/ros_roomba/src/roomba/rviz/config.rviz &
 cd /home/klaudiusz/Documents/ros_roomba/src/roomba/webpage/
 
 # Run HTTP server on port 7000
-python -m http.server 7000 &
+# python -m http.server 7000 &
 
 sleep 1
 
 # Run the web bridge
-ros2 launch rosbridge_server rosbridge_websocket_launch.xml &
+# ros2 launch rosbridge_server rosbridge_websocket_launch.xml &
 
 sleep 1
 
 # Open Chrome on port 7000
-google-chrome http://0.0.0.0:7000/ &
+# google-chrome http://0.0.0.0:7000/ &
 
 # Start a new bash shell
 exec bash'

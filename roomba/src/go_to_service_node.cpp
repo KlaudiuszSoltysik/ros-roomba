@@ -2,6 +2,7 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <cmath>
 
 #include "rclcpp/rclcpp.hpp"
 #include "tf2_ros/buffer.h"
@@ -29,6 +30,9 @@ class GoTo : public rclcpp::Node {
       tf_buffer = std::make_unique<tf2_ros::Buffer>(get_clock());
       tf_listener = std::make_shared<tf2_ros::TransformListener>(*tf_buffer);
 
+      // Create cmd vel publisher
+      pub = this->create_publisher<geometry_msgs::msg::Twist>("cmd_vel", 10);
+
       // Prompt user about succesfully created node
       RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "The go to service node ran successfully");
     }
@@ -36,22 +40,72 @@ class GoTo : public rclcpp::Node {
   private:
     rclcpp::Service<custom_interfaces::srv::GoTo>::SharedPtr srv;
     rclcpp::Client<custom_interfaces::srv::ReturnTf>::SharedPtr cli;
+    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr pub;
     std::unique_ptr<tf2_ros::Buffer> tf_buffer;
     std::shared_ptr<tf2_ros::TransformListener> tf_listener;
-    geometry_msgs::msg::TransformStamped starting_tf;
-    geometry_msgs::msg::TransformStamped ending_tf;
+
+    double delta_d = 0;
+    
+    double delta_theta = 0;
 
     void goToCb(const std::shared_ptr<custom_interfaces::srv::GoTo::Request> go_to_req, std::shared_ptr<custom_interfaces::srv::GoTo::Response> go_to_resp) {
-      starting_tf = tf_buffer->lookupTransform("world", "roomba", tf2::TimePointZero);
-
       auto return_tf_req = std::make_shared<custom_interfaces::srv::ReturnTf::Request>();
 
       return_tf_req->x = go_to_req->x;
       return_tf_req->y = go_to_req->y;
 
-      auto result_future = cli->async_send_request(return_tf_req);
-      
-      // RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "%f", result->tf.transform.translation.x);
+      auto response_received_callback = [this](rclcpp::Client<custom_interfaces::srv::ReturnTf>::SharedFuture future) {
+        auto ending_tf = future.get();
+
+        geometry_msgs::msg::TransformStamped current_tf = tf_buffer->lookupTransform("world", "roomba", tf2::TimePointZero);
+        tf2::Quaternion q(
+          current_tf.transform.rotation.x,
+          current_tf.transform.rotation.y,
+          current_tf.transform.rotation.z,
+          current_tf.transform.rotation.w);
+        tf2::Matrix3x3 m(q);
+        double roll, pitch, yaw_before;
+        m.getRPY(roll, pitch, yaw_before);
+
+        while(true) {
+          geometry_msgs::msg::TransformStamped current_tf = tf_buffer->lookupTransform("world", "roomba", tf2::TimePointZero);
+          tf2::Quaternion q(
+            current_tf.transform.rotation.x,
+            current_tf.transform.rotation.y,
+            current_tf.transform.rotation.z,
+            current_tf.transform.rotation.w);
+          tf2::Matrix3x3 m(q);
+          double roll, pitch, yaw_current;
+          m.getRPY(roll, pitch, yaw_current);
+
+          delta_theta = atan2(ending_tf->tf.transform.translation.y - current_tf.transform.translation.y, ending_tf->tf.transform.translation.x - current_tf.transform.translation.x) - (yaw_current - yaw_before);
+          
+          while(delta_theta >= 2 * M_PI) {
+            delta_theta -= 2 * M_PI;
+          }
+
+          while(delta_theta <= -2 * M_PI) {
+            delta_theta += 2 * M_PI;
+          }
+
+          RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "%f", delta_theta);
+          geometry_msgs::msg::Twist msg;
+
+          msg.angular.z = (delta_theta > 0) ? 0.2 : -0.2;
+
+          pub->publish(msg);
+          
+          if(abs(delta_theta) < 0.1) {
+            msg.angular.z = 0;
+            pub->publish(msg);
+            break;
+          }
+
+          rclcpp::sleep_for(std::chrono::milliseconds(10));
+        }
+      };
+
+      auto result_future = cli->async_send_request(return_tf_req, response_received_callback);
 
       go_to_resp->result = true;
     }

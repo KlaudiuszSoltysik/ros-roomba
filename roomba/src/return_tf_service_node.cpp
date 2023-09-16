@@ -33,8 +33,17 @@ class ReturnTf : public rclcpp::Node {
     void ReturnTfCb(const std::shared_ptr<custom_interfaces::srv::ReturnTf::Request> req, std::shared_ptr<custom_interfaces::srv::ReturnTf::Response> resp) {
       tf = tf_buffer->lookupTransform("world", "roomba", tf2::TimePointZero);
 
-      tf.transform.translation.x += req->x;
-      tf.transform.translation.y += req->y;
+      tf2::Quaternion q(
+        tf.transform.rotation.x,
+        tf.transform.rotation.y,
+        tf.transform.rotation.z,
+        tf.transform.rotation.w);
+      tf2::Matrix3x3 m(q);
+      double roll, pitch, yaw;
+      m.getRPY(roll, pitch, yaw);
+
+      tf.transform.translation.x = req->x * cos(yaw) - req->y * sin(yaw);
+      tf.transform.translation.y = req->x * sin(yaw) - req->y * cos(yaw);
       
       resp->tf = tf;
     }
