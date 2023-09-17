@@ -11,3 +11,4 @@ Software to simulate and control robot vaccum made with Gazebo and Ros2 Humble. 
 ![image](https://github.com/KlaudiuszSoltysik/ros-roomba/assets/109976941/9f177486-641f-4f54-9db8-8db896f7dedf)
 
 ## Video-presentation
+https://youtu.be/-lddOBJMt6w
