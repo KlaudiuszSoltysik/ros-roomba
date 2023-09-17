@@ -1,6 +1,6 @@
 // Connect with web bridge
 let ros = new ROSLIB.Ros({
-    url: 'ws://192.168.33.10:9090'
+    url: 'ws://192.168.33.5:9090'
 });
 
 ros.on('connection', function () {
@@ -188,7 +188,7 @@ go_to_btn.addEventListener('mousedown', function () {
             map_room_btn.disabled = false;
             clean_room_btn.disabled = false;
 
-            enableDisableButtons(true);
+            enableDisableButtons(false);
         });
     } else {
         go_to_btn.innerHTML = "GO TO";

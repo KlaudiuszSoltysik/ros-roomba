@@ -29,7 +29,7 @@ class TfPublisher : public rclcpp::Node {
 
       tf.header.stamp = this->get_clock()->now();
       tf.header.frame_id = "world";
-      tf.child_frame_id = "roomba";
+      tf.child_frame_id = "base_link";
 
       tf.transform.translation.x = msg.pose.pose.position.x;
       tf.transform.translation.y = msg.pose.pose.position.y;

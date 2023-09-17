@@ -31,7 +31,7 @@ class ReturnTf : public rclcpp::Node {
     geometry_msgs::msg::TransformStamped tf;
 
     void ReturnTfCb(const std::shared_ptr<custom_interfaces::srv::ReturnTf::Request> req, std::shared_ptr<custom_interfaces::srv::ReturnTf::Response> resp) {
-      tf = tf_buffer->lookupTransform("world", "roomba", tf2::TimePointZero);
+      tf = tf_buffer->lookupTransform("world", "base_link", tf2::TimePointZero);
 
       tf2::Quaternion q(
         tf.transform.rotation.x,

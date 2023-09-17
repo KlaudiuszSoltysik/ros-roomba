@@ -41,9 +41,9 @@ def generate_launch_description():
     return LaunchDescription([
         base_node,
         camera_translate_node,
-        robot_tf_publisher_node,
-        return_tf_service_node,
-        map_room_node,
-        go_to_node,
-        clean_room_node,
+        # robot_tf_publisher_node,
+        # return_tf_service_node,
+        # map_room_node,
+        # go_to_node,
+        # clean_room_node,
     ])

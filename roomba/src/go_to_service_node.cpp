@@ -44,10 +44,6 @@ class GoTo : public rclcpp::Node {
     std::unique_ptr<tf2_ros::Buffer> tf_buffer;
     std::shared_ptr<tf2_ros::TransformListener> tf_listener;
 
-    double delta_d = 0;
-    
-    double delta_theta = 0;
-
     void goToCb(const std::shared_ptr<custom_interfaces::srv::GoTo::Request> go_to_req, std::shared_ptr<custom_interfaces::srv::GoTo::Response> go_to_resp) {
       auto return_tf_req = std::make_shared<custom_interfaces::srv::ReturnTf::Request>();
 
@@ -57,7 +53,7 @@ class GoTo : public rclcpp::Node {
       auto response_received_callback = [this](rclcpp::Client<custom_interfaces::srv::ReturnTf>::SharedFuture future) {
         auto ending_tf = future.get();
 
-        geometry_msgs::msg::TransformStamped current_tf = tf_buffer->lookupTransform("world", "roomba", tf2::TimePointZero);
+        geometry_msgs::msg::TransformStamped current_tf = tf_buffer->lookupTransform("world", "base_link", tf2::TimePointZero);
         tf2::Quaternion q(
           current_tf.transform.rotation.x,
           current_tf.transform.rotation.y,
@@ -68,7 +64,7 @@ class GoTo : public rclcpp::Node {
         m.getRPY(roll, pitch, yaw_before);
 
         while(true) {
-          geometry_msgs::msg::TransformStamped current_tf = tf_buffer->lookupTransform("world", "roomba", tf2::TimePointZero);
+          geometry_msgs::msg::TransformStamped current_tf = tf_buffer->lookupTransform("world", "base_link", tf2::TimePointZero);
           tf2::Quaternion q(
             current_tf.transform.rotation.x,
             current_tf.transform.rotation.y,
@@ -78,7 +74,7 @@ class GoTo : public rclcpp::Node {
           double roll, pitch, yaw_current;
           m.getRPY(roll, pitch, yaw_current);
 
-          delta_theta = atan2(ending_tf->tf.transform.translation.y - current_tf.transform.translation.y, ending_tf->tf.transform.translation.x - current_tf.transform.translation.x) - (yaw_current - yaw_before);
+          double delta_theta = atan2(ending_tf->tf.transform.translation.y - current_tf.transform.translation.y, ending_tf->tf.transform.translation.x - current_tf.transform.translation.x) - (yaw_current - yaw_before);
           
           while(delta_theta >= 2 * M_PI) {
             delta_theta -= 2 * M_PI;
@@ -88,15 +84,39 @@ class GoTo : public rclcpp::Node {
             delta_theta += 2 * M_PI;
           }
 
-          RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "%f", delta_theta);
           geometry_msgs::msg::Twist msg;
 
-          msg.angular.z = (delta_theta > 0) ? 0.2 : -0.2;
+          msg.angular.z = (delta_theta > 0) ? 0.5 : -0.5;
 
           pub->publish(msg);
           
           if(abs(delta_theta) < 0.1) {
             msg.angular.z = 0;
+            pub->publish(msg);
+            break;
+          }
+
+          rclcpp::sleep_for(std::chrono::milliseconds(10));
+        }
+
+        double delta_d = std::numeric_limits<double>::infinity();
+        double old_delta_d;
+
+        while(true) {
+          geometry_msgs::msg::TransformStamped current_tf = tf_buffer->lookupTransform("world", "base_link", tf2::TimePointZero);
+
+          old_delta_d = delta_d;
+
+          delta_d = sqrt(pow(ending_tf->tf.transform.translation.x - current_tf.transform.translation.x, 2) + pow(ending_tf->tf.transform.translation.y - current_tf.transform.translation.y, 2));
+
+          geometry_msgs::msg::Twist msg;
+
+          msg.linear.x = 1.0;
+
+          pub->publish(msg);
+          
+          if(delta_d > old_delta_d) {
+            msg.linear.x = 0;
             pub->publish(msg);
             break;
           }
