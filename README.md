@@ -1,5 +1,5 @@
 # ros-roomba
-Software to simulate and control robot vaccum made with Gazebo and Ros2 Humble. Control is done via HTTP server (JavaScript, HTML, CSS)
+Software to simulate and control a robotic vacuum, developed using Gazebo and ROS2 Humble. The project includes custom-designed models for both the robot and the room environment. Control is implemented via an HTTP server, utilizing JavaScript, HTML, and CSS for interaction.
 ## Principle of operation
 - Robot and world simulation made in Gazebo
 - Brigdes to bridge Gazebo topics to ROS topics
